@@ -50,7 +50,11 @@ export default Em.Component.extend(WithConfigMixin, StyleBindingsMixin, {
     return tabs && tabs.objectAt(index);
   }),
   selected: Em.computed('tab', 'tab.selected', function() {
-    return this.get('tab.selected');
+    var sel = this.get('tab.selected');
+    if (sel || sel === false) {
+      return sel;
+    }
+    return true;
   }),
   changeVisibility: Em.observer('selected', function() {
     return this.$().css('display', this.get('selected') ? "" : 'none');
